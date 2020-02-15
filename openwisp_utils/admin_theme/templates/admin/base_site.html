@@ -6,11 +6,14 @@
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/openwisp.css" %}" />
+{% for css in openwisp_admin_css %}
+    <link rel="stylesheet" type="text/css" href="{{css}}" />
+{% endfor %}
 <link rel="icon" type="image/x-icon" href="{% static "ui/openwisp/images/favicon.png" %}" />
 {% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header }}</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header }} {{bloop}}</a></h1>
 {% endblock %}
 
 {% block welcome-msg %}
@@ -32,7 +35,7 @@
 
 <div id="main-menu">
     <a href="{% url 'admin:index' %}"
-       class="home">{% trans 'Home' %}</a>
+       class="home">{% trans 'Home' %} {{bloop}} </a>
     {% for item in openwisp_menu_items %}
     <a href="{{ item.url }}"
        class="{{ item.class }}">{{ item.label }}</a>
@@ -55,6 +58,9 @@
     loaded before jQuery is loaded
 {% endcomment %}
 {% if has_permission %}
-<script src="{% static "admin/js/menu.js" %}"></script>
+    <script src="{% static "admin/js/menu.js" %}"></script>
 {% endif %}
+{% for js in openwisp_admin_js %}
+    <script src="{{js}}"></script>
+{% endfor %}
 {% endblock %}

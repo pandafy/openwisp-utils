@@ -143,7 +143,7 @@ in ``settings.py``.
 ``DependencyLoader``
 ~~~~~~~~~~~~~~~~~~~~
 
-Add ``openwisp_utils.loaders.DependencyLoaderr`` to
+Add ``openwisp_utils.loaders.DependencyLoader`` to
 template ``loaders`` in ``settings.py`` as shown below.
 
 .. code-block:: python
@@ -255,6 +255,39 @@ Example usage:
         }
     ]
 
+``OPENWISP_ADMIN_THEME_CSS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**default**: ``[]``
+
+Allows to pass a custom list containg relative path to CSS files present in root static folder.
+Adding this setting does not overides default theme, rather you have to overide CSS selectors in you file. 
+
+Example usage:
+
+.. code-block:: python
+
+    OPENWISP_ADMIN_THEME_CSS = [
+    	"../static/custom-admin-theme/css/you-custom-css1.css",
+    	"../static/custom-admin-theme/css/you-custom-css2.css",
+	]
+	
+``OPENWISP_ADMIN_JS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**default**: ``[]``
+
+Allows to pass a custom list containg relative path to JS files present in root static folder.
+
+Example usage:
+
+.. code-block:: python
+
+    OPENWISP_ADMIN_THEME_CSS = [
+    	"../static/custom-admin-theme/js/you-custom-js1.css",
+    	"../static/custom-admin-theme/js/you-custom-js2.css",
+	]
+    
 Quality Assurance checks
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
