@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/home/openwisp/openwisp/openwisp-utils/env/bin/python3",
+    "restructuredtext.confPath": "${workspaceFolder}/env/lib64/python3.7/site-packages/importlib_metadata/docs"
+}

@@ -1,8 +1,8 @@
 from django.apps import registry
 from django.conf import settings
 from django.contrib.admin import site
-from django.urls import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse
 
 
 def menu_items(request):
@@ -39,14 +39,15 @@ def build_menu(request=None):
             })
     return menu
 
+
 def customize_admin_theme(request):
-    static_css = getattr(settings,'OPENWISP_ADMIN_THEME_CSS',[])
-    static_js = getattr(settings,'OPENWISP_ADMIN_JS',[])
-    if type(static_css) != type([]) or not all(isinstance(item, str) for item in static_css):
+    openwisp_admin_css = getattr(settings, 'OPENWISP_ADMIN_THEME_CSS', [])
+    openwisp_admin_js = getattr(settings, 'OPENWISP_ADMIN_JS', [])
+    if not isinstance(openwisp_admin_css, list) or not all(isinstance(item, str) for item in openwisp_admin_css):
         raise ImproperlyConfigured("OPENWISP_ADMIN_THEME_CSS should be a list of strings.")
-    if type(static_js) != type([]) or not all(isinstance(item, str) for item in static_js):
+    if not isinstance(openwisp_admin_js, list) or not all(isinstance(item, str) for item in openwisp_admin_js):
         raise ImproperlyConfigured("OPENWISP_ADMIN_JS should be a list of strings.")
     return {
-        'openwisp_admin_css' : static_css,
-        'openwisp_admin_js' : static_js,
+        'openwisp_admin_css': openwisp_admin_css,
+        'openwisp_admin_js': openwisp_admin_js,
     }

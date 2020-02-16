@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header }} {{bloop}}</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header }}</a></h1>
 {% endblock %}
 
 {% block welcome-msg %}
@@ -35,7 +35,7 @@
 
 <div id="main-menu">
     <a href="{% url 'admin:index' %}"
-       class="home">{% trans 'Home' %} {{bloop}} </a>
+       class="home">{% trans 'Home' %}</a>
     {% for item in openwisp_menu_items %}
     <a href="{{ item.url }}"
        class="{{ item.class }}">{{ item.label }}</a>
@@ -61,6 +61,6 @@
     <script src="{% static "admin/js/menu.js" %}"></script>
 {% endif %}
 {% for js in openwisp_admin_js %}
-    <script src="{{js}}"></script>
+    <script type="text/javascript" src="{{js}}"></script>
 {% endfor %}
 {% endblock %}
