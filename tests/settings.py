@@ -64,7 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'openwisp_utils.admin_theme.context_processor.menu_items'
+                'openwisp_utils.admin_theme.context_processor.menu_items',
+                'openwisp_utils.admin_theme.context_processor.customize_admin_theme'
             ],
         },
     },
@@ -92,3 +93,5 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+STATICFILES_DIRS = ( os.path.join(BASE_DIR,'test_project'),)

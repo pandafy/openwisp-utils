@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.urls import reverse
 
@@ -125,3 +127,40 @@ class TestAdmin(TestCase, CreateMixin):
         ma = ProjectAdmin(Project, self.site)
         url = ma.receive_url(p)
         self.assertContains(response, url)
+
+    def test_customize_admin_theme_css(self):
+        url = reverse('admin:index')
+
+        # test for improper configuration : not a list
+        with self.assertRaises(ImproperlyConfigured):
+            setattr(settings, 'OPENWISP_ADMIN_THEME_CSS', "string instead of list")
+            self.client.get(url)
+
+        # test for improper configuration : list_elements != type(str)
+        with self.assertRaises(ImproperlyConfigured):
+            setattr(settings, 'OPENWISP_ADMIN_THEME_CSS', [0, 1, 2])
+            self.client.get(url)
+
+        # test with desired configuration
+        setattr(settings, 'OPENWISP_ADMIN_THEME_CSS', [
+                "http://127.0.0.1:8000/static/custom_admin_theme_css.css"])
+        response = self.client.get(url)
+        self.assertContains(response, 'href="http://127.0.0.1:8000/static/custom_admin_theme_css.css"')
+
+    def test_customize_admin_js(self):
+        url = reverse('admin:index')
+
+        # test for improper configuration : not a list
+        with self.assertRaises(ImproperlyConfigured):
+            setattr(settings, 'OPENWISP_ADMIN_JS', "string instead of list")
+            self.client.get(url)
+
+        # test for improper configuration : list_elements != type(str)
+        with self.assertRaises(ImproperlyConfigured):
+            setattr(settings, 'OPENWISP_ADMIN_JS', [0, 1, 2])
+            self.client.get(url)
+
+        # test with desired configuration
+        setattr(settings, 'OPENWISP_ADMIN_JS', ['http://127.0.0.1:8000/static/openwisp-utils/js/uuid.js'])
+        response = self.client.get(url)
+        self.assertContains(response, 'src="http://127.0.0.1:8000/static/openwisp-utils/js/uuid.js"')

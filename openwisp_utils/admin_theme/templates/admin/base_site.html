@@ -6,6 +6,9 @@
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/openwisp.css" %}" />
+{% for css in openwisp_admin_css %}
+    <link rel="stylesheet" type="text/css" href="{{css}}" />
+{% endfor %}
 <link rel="icon" type="image/x-icon" href="{% static "ui/openwisp/images/favicon.png" %}" />
 {% endblock %}
 
@@ -55,6 +58,9 @@
     loaded before jQuery is loaded
 {% endcomment %}
 {% if has_permission %}
-<script src="{% static "admin/js/menu.js" %}"></script>
+    <script src="{% static "admin/js/menu.js" %}"></script>
 {% endif %}
+{% for js in openwisp_admin_js %}
+    <script type="text/javascript" src="{{js}}"></script>
+{% endfor %}
 {% endblock %}

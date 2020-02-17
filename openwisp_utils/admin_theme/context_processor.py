@@ -1,6 +1,7 @@
 from django.apps import registry
 from django.conf import settings
 from django.contrib.admin import site
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
 
@@ -37,3 +38,18 @@ def build_menu(request=None):
                 'class': model.lower()
             })
     return menu
+
+
+def customize_admin_theme(request):
+    openwisp_admin_css = getattr(settings, 'OPENWISP_ADMIN_THEME_CSS', [])
+    openwisp_admin_js = getattr(settings, 'OPENWISP_ADMIN_JS', [])
+    is_list_of_str = all(isinstance(item, str) for item in openwisp_admin_css)
+    if not isinstance(openwisp_admin_css, list) or not is_list_of_str:
+        raise ImproperlyConfigured("OPENWISP_ADMIN_THEME_CSS should be a list of strings.")
+    is_list_of_str = all(isinstance(item, str) for item in openwisp_admin_js)
+    if not isinstance(openwisp_admin_js, list) or not is_list_of_str:
+        raise ImproperlyConfigured("OPENWISP_ADMIN_JS should be a list of strings.")
+    return {
+        'openwisp_admin_css': openwisp_admin_css,
+        'openwisp_admin_js': openwisp_admin_js,
+    }

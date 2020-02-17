@@ -143,7 +143,7 @@ in ``settings.py``.
 ``DependencyLoader``
 ~~~~~~~~~~~~~~~~~~~~
 
-Add ``openwisp_utils.loaders.DependencyLoaderr`` to
+Add ``openwisp_utils.loaders.DependencyLoader`` to
 template ``loaders`` in ``settings.py`` as shown below.
 
 .. code-block:: python
@@ -197,6 +197,43 @@ template ``context_processors`` in ``settings.py`` as shown below.
             },
         },
     ]
+
+Using Custom CSS and JS for Admin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add ``openwisp_utils.admin_theme.context_processor.customize_admin_theme`` to
+template ``context_processors`` in ``settings.py`` as shown below.
+This will allow to set ``OPENWISP_ADMIN_THEME_CSS`` and ``OPENWISP_ADMIN_JS`` settings.
+
+.. code-block:: python
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'OPTIONS': {
+                'loaders': [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'openwisp_utils.loaders.DependencyLoader',
+                ],
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                    'openwisp_utils.admin_theme.context_processor.menu_items',
+                    'openwisp_utils.admin_theme.context_processor.customize_admin_theme'
+                ],
+            },
+        },
+    ]
+
+.. note::
+    You will have to manually deploy these static files.
+     One way to do this is by adding the directory containing these static files to the ``STATICFILES_DIR`` setting in ``settings.py``.
+     You can learn more at `Django Documentation <https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-STATICFILES_DIRS>`_.
+
 
 Settings
 ^^^^^^^^
@@ -255,6 +292,39 @@ Example usage:
         }
     ]
 
+``OPENWISP_ADMIN_THEME_CSS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**default**: ``[]``
+
+Allows passing a list containing strings of URLs of custom CSS files.
+ Adding this setting does not override the default theme,
+ rather you will have to override, CSS selectors in your file.
+
+Example usage:
+
+.. code-block:: python
+
+    OPENWISP_ADMIN_THEME_CSS = [
+    	"http://127.0.0.1:8000/static/custom_admin_theme_css.css"
+	]
+	
+``OPENWISP_ADMIN_JS``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**default**: ``[]``
+
+Allows to pass a list contaning strings of URLs of custom JS files.
+
+Example usage:
+
+.. code-block:: python
+
+    OPENWISP_ADMIN_THEME_CSS = [
+    	"../static/custom-admin-theme/js/you-custom-js1.css",
+    	"../static/custom-admin-theme/js/you-custom-js2.css",
+	]
+    
 Quality Assurance checks
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
