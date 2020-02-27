@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'openwisp_utils.admin_theme.context_processor.menu_items',
-                'openwisp_utils.admin_theme.context_processor.customize_admin_theme'
+                'openwisp_utils.admin_theme.context_processor.admin_theme_settings',
             ],
         },
     },
@@ -95,3 +95,6 @@ except ImportError:
     pass
 
 STATICFILES_DIRS = ( os.path.join(BASE_DIR,'test_project'),)
+
+# OPENWISP_ADMIN_THEME_CSS = ['http://127.0.0.1:8000/static/custom-admin-theme.css',234]
+# OPENWISP_ADMIN_THEME_JS = ['http://127.0.0.1:8000/static/openwisp-utils/js/uuid.js']
