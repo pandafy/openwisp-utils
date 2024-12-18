@@ -27,7 +27,7 @@ jobs:
       run: |
         VERSION=$(python -c '
         from openwisp_utils import VERSION
-        print(f"{VERSION[0]}.{VERSION[1]}.x")
+        print(f"{VERSION[0]}.{VERSION[1]}")
         ')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
